@@ -4,8 +4,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
   version="1.0">
-    <package>org.jboss.openshift</package>
-    <entity class="RecoveryInProgressRecord" access="FIELD">
-        <table name="${hb_table_name}"/>
+    <package>cz.chalda</package>
+    <entity class="PersonNameDictionary" access="FIELD">
+        <table name="PERSON_NAMER"/>
     </entity> 
 </entity-mappings>

@@ -5,12 +5,14 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Simple test entity with compound primary key
  * that contains name of a person.
  */
 @Entity
+@Table(name = "PERSON_DICTIONARY")
 public class PersonNameDictionary {
 
     @EmbeddedId PersonNameDictionaryId id;

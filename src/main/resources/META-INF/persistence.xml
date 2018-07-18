@@ -5,7 +5,7 @@
     <persistence-unit name="person-dictionary">
         <description>Standalone hibernate app to create database schema and persist data</description>
 
-        <!-- <mapping-file>./hibernate.hbm.xml</mapping-file> -->
+        <mapping-file>./hibernate.hbm.xml</mapping-file>
 
         <class>cz.chalda.PersonNameDictionary</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -16,6 +16,13 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/test" />
             <property name="javax.persistence.jdbc.user" value="test" />
             <property name="javax.persistence.jdbc.password" value="test" />
+
+            <!--  Attempted to specify unsupported NamingStrategy via setting [hibernate.ejb.naming_strategy];
+                  NamingStrategy has been removed in favor of the split ImplicitNamingStrategy and PhysicalNamingStrategy;
+                  use [hibernate.implicit_naming_strategy] or [hibernate.physical_naming_strategy], respectively, instead. -->
+            <!--  <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategty"/> -->
+            <property name="hibernate.physical_naming_strategy" value="cz.chalda.TableNamingStrategy"/>
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
         </properties>
     </persistence-unit>
 </persistence>

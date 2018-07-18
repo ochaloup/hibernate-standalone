@@ -5,12 +5,14 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Simple test entity with compound primary key
  * that contains name of a person.
  */
 @Entity
+@Table(name = "PERSON_DICTIONARY")
 public class PersonNameDictionary {
 
     @EmbeddedId PersonNameDictionaryId id;
@@ -23,7 +25,7 @@ public class PersonNameDictionary {
 
     @Override
     public String toString() {
-        return String.format("name: %s, surename: %s",
+        return String.format("name: %s, surname: %s",
             this.id.getFirstName(), this.id.getSurname());
     }
 }
@@ -35,8 +37,8 @@ class PersonNameDictionaryId implements Serializable {
     private String firstName;
     private String surname;
 
-    PersonNameDictionaryId setSurname(String surename) {
-        this.surname = surename;
+    PersonNameDictionaryId setSurname(String surname) {
+        this.surname = surname;
         return this;
     }
     PersonNameDictionaryId setFirstName(String firstName) {

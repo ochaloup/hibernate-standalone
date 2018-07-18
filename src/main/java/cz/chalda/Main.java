@@ -17,18 +17,21 @@ import org.jboss.logging.Logger;
 public class Main {
     private static final Logger log = Logger.getLogger(Main.class);
 
-    private static final String PERSISTENCE_UNIT_NAME = "hibernate-executor";
+    private static final String PERSISTENCE_UNIT_NAME = "person-dictionary";
 
     public static void main( String[] args ) {
+    	// programmatically calling schema generation 
         Properties generateSchemaProperties = new Properties();
         generateSchemaProperties.setProperty(AvailableSettings.HBM2DDL_DATABASE_ACTION, "create");
         Persistence.generateSchema(PERSISTENCE_UNIT_NAME, generateSchemaProperties);
 
+        // getting entity manager for the defined persistence unit
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = emf.createEntityManager();
 
+        // having transaction started and persisting a entity
         em.getTransaction().begin();
-        PersonNameDictionary record = new PersonNameDictionary("franta", "recovery-franta");
+        PersonNameDictionary record = new PersonNameDictionary("Bilbo", "Baggins");
         try {
             em.persist(record);
             em.getTransaction().commit();
@@ -40,11 +43,11 @@ public class Main {
             throw new RuntimeException("Can't persist record: [" + record + "]", e);
         }
 
-        String queryPodname = "franta";
+        String personName = "Bilbo";
         try {
-            log.infof("query returned: [%s]%n", Main.getRecord(em, queryPodname));
+            log.infof("query returned: [%s]%n", Main.getDictionaryRecord(em, personName));
         } catch (NoResultException nre) {
-            log.errorf(nre, "No record for app pod name: %s%n", queryPodname);
+            log.errorf(nre, "No surname for person name: %s%n", personName);
         } finally {
             log.debugf("Closing em [%s] and emf [%s]", em, emf);
             if(em.isOpen()) em.close();
@@ -52,7 +55,7 @@ public class Main {
         }
     }
 
-    public static PersonNameDictionary getRecord(EntityManager em, String firstName) {
+    public static PersonNameDictionary getDictionaryRecord(EntityManager em, String firstName) {
         TypedQuery<PersonNameDictionary> query = em.createQuery(
             "SELECT r FROM PersonNameDictionary r WHERE r.id.firstName = :name", PersonNameDictionary.class);
         return query.setParameter("name", firstName).getSingleResult();

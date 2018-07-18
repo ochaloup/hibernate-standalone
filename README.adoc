@@ -14,6 +14,15 @@ The easiest way is probably with Docker
 docker run -p 5432:5432 --rm  -ePOSTGRES_USER=test -e POSTGRES_PASSWORD=test postgres:9.4 -c max-prepared-transactions=110 -c log-statement=all
 ```
 
+[NOTE]
+====
+For getting list of database tables in PostgreSQL database you can run sql query
+
+```
+SELECT *  FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema = 'public' ORDER BY table_type, table_name
+```
+====
+
 == Run the app
 
 If your database is running at different machine than at `localhost:5432` or with different credentials than `test/test`

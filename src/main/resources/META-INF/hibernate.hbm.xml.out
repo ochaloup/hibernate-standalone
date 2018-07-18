@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- hbm.xml file which maps the same way as the annotations in entity. Here we can define the table name
+     if we want but the mapping has to be complete as defined by annotations. -->
+<hibernate-mapping>
+	<class name="cz.chalda.PersonNameDictionary" table="PERSON_DICTIONARY_BADBOY">
+      <composite-id class="cz.chalda.PersonNameDictionaryId" name="id">
+         <key-property name="firstName"></key-property>
+         <key-property name="surname"></key-property>
+      </composite-id>
+	</class>
+</hibernate-mapping>

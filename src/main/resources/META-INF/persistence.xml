@@ -5,8 +5,9 @@
     <persistence-unit name="person-dictionary">
         <description>Standalone hibernate app to create database schema and persist data</description>
 
-        <class>cz.chalda.PersonNameDictionary</class>
+        <!-- <mapping-file>./hibernate.hbm.xml</mapping-file> -->
 
+        <class>cz.chalda.PersonNameDictionary</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
  
         <properties>

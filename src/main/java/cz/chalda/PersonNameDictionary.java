@@ -5,14 +5,12 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * Simple test entity with compound primary key
  * that contains name of a person.
  */
 @Entity
-@Table(name = "PERSON_DICTIONARY")
 public class PersonNameDictionary {
 
     @EmbeddedId PersonNameDictionaryId id;
@@ -28,6 +26,14 @@ public class PersonNameDictionary {
         return String.format("name: %s, surname: %s",
             this.id.getFirstName(), this.id.getSurname());
     }
+
+    // id getter and setter is needed when hibernate.hbm.xml is used
+    private PersonNameDictionaryId getId() {
+		return id;
+	}
+	private void setId(PersonNameDictionaryId id) {
+		this.id = id;
+	}    
 }
 
 @Embeddable
